@@ -29,22 +29,16 @@ else{
 }
 
 sub run_install {
-    # Install the apache2 web server.
-    my $output = system("bin/install_httpd.sh");
-    if($output ne "1"){
-        die("Installation of httpd has failed.");
-    }
-    else{
-        print "Installed HTTP !OK! \n";
-    }
-
-    # Install php.
-    my $php_install = system("bin/install_php.sh");
-    if($php_install ne "1"){
-        die("Installation of php has failed.");
-    }
-    else{
-        print "Installed PHP !OK!";
+    # The array of items to install.
+    my @to_install = (
+        "httpd",
+        "php",
+        "ruby"
+    );
+    foreach $to_inst (@to_install){
+        print "Attempting to install $to_inst";
+        system("yum install $to_inst");
+        print "Done installing $to_inst";
     }
 }
 
